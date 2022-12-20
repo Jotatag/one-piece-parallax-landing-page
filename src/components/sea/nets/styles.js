@@ -1,14 +1,21 @@
 import styled from 'styled-components';
 
+export const NetsContainer = styled.div`
+  position: absolute;
+  top: 0;
+  height: 2160px;
+  width: 100vw;
+  z-index: 10;
+`
+
 export const Net = styled.img`
   position: absolute;
-  z-index: 10;
 
   &.left {
-    left: -8px;
+    left: 0;
   }
 
   &.right {
-    right: -9px;
+    right: 0;
   }
 `

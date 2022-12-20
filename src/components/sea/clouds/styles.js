@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const CloudsContainer = styled.div`
   position: absolute;
   top: 1500px;
-
   height: 550px;
   width: 100vw;
   z-index: 3;

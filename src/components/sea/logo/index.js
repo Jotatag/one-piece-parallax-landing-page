@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
@@ -7,32 +7,43 @@ import * as Styles from './styles';
 import LogoImg from '../../../assets/sea/logo.png';
 
 gsap.registerPlugin(ScrollTrigger);
-const sceneLogo = gsap.timeline();
 
-const Logo = () => {
+const SceneLogo = () => {
+    const [timeline, setTimeline] = useState(null);
+    const sceneLogoRef = useRef(null);
     const logoRef = useRef(null);
 
     useEffect(() => {
         if(!logoRef) return;
 
-        ScrollTrigger.create({
-            animation: sceneLogo,
-            trigger: logoRef.current,
-            start: 'top top+=50',
-            end: 1191,
-            scrub: 2
-        });
+        if(!timeline)
+            setTimeline(
+                gsap.timeline({
+                    scrollTrigger: {
+                        trigger: sceneLogoRef.current,
+                        start: 'top+=150px top',
+                        end: 'top+=2160px bottom',
+                        scrub: 2
+                    }
+                })
+            );
 
-        sceneLogo.to(
+        if(!timeline) return;
+
+        timeline.to(
             logoRef.current,
             {
                 top: 1300
             },
             0
         );
-    }, []);
+    }, [timeline]);
 
-    return <Styles.Logo ref={logoRef} src={LogoImg} className='logo' />
+    return (
+        <Styles.LogoContainer ref={sceneLogoRef}>
+            <Styles.Logo ref={logoRef} src={LogoImg} className='logo' />
+        </Styles.LogoContainer>
+    );
 }
 
-export default Logo;
+export default SceneLogo;
